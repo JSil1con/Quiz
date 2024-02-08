@@ -23,6 +23,7 @@
             HorizontalContentAlignment="Center"
             VerticalAlignment="Top" Grid.RowSpan="2"/>
         <Button 
+            x:Name="SelectButtonOne"
             Content="Button" 
             HorizontalAlignment="Center" 
             Grid.Row="1" 

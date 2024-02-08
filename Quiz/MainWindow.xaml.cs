@@ -1,6 +1,7 @@
 ﻿using Quiz.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,9 @@ namespace Quiz
 
             EquationLabel.Content = equation;
 
+            DataTable dt = new DataTable();
+            var v = dt.Compute(equation, "");
+            SelectButtonOne.Content = v.ToString();
         }
     }
 }
