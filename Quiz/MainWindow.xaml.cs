@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quiz.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,24 @@ namespace Quiz
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Question _question;
         public MainWindow()
         {
             InitializeComponent();
+            CreateEquation();
+        }
+
+        private void CreateEquation()
+        {
+            char[] signs = { '+', '-', '*', '/' };
+
+            Random rnd = new Random();
+            int[] numbers = { rnd.Next(100), rnd.Next(100) };
+
+            string equation = numbers[0].ToString() + signs[rnd.Next(4)] + numbers[1].ToString();
+
+            EquationLabel.Content = equation;
+
         }
     }
 }

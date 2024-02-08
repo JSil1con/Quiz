@@ -12,6 +12,7 @@
             <RowDefinition Height="33*"/>
         </Grid.RowDefinitions>
         <Label 
+            x:Name="EquationLabel"
             Content="Label" 
             HorizontalAlignment="Center" 
             Margin="0,177,0,0" 
