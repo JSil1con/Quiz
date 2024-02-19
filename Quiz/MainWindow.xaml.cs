@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,12 +37,14 @@ namespace Quiz
             Random rnd = new Random();
             int[] numbers = { rnd.Next(100), rnd.Next(100) };
 
-            string equation = numbers[0].ToString() + signs[rnd.Next(4)] + numbers[1].ToString();
+            char selectedSign = signs[rnd.Next(4)];
 
-            EquationLabel.Content = equation;
+            Equation equation = new Equation(selectedSign, numbers);
+
+            EquationLabel.Content = equation.ToString();
 
             DataTable dt = new DataTable();
-            var v = dt.Compute(equation, "");
+            var v = dt.Compute(equation.ToString(), "");
             SelectButtonOne.Content = v.ToString();
         }
     }
