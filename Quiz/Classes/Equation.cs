@@ -11,10 +11,14 @@ namespace Quiz.Classes
     {
         public char Sign { get; set; }
         public int[] Numbers { get; set; }
+        public float CorrectAnswer { get; set; }
+        DataTable dt = new DataTable();
+        Random rnd = new Random();
         public Equation(char sign, int[] numbers)
         {
             Sign = sign;
             Numbers = numbers;
+            CorrectAnswer = CalculateCorrectAnswer();
         }
 
         public string ToString()
@@ -24,8 +28,44 @@ namespace Quiz.Classes
 
         public float CalculateCorrectAnswer()
         {
-            DataTable dt = new DataTable();
-            return float.Parse(dt.Compute(this.ToString(), "").ToString());
+            return float.Parse(dt.Compute(Numbers[0].ToString() + Sign + Numbers[1].ToString(), "").ToString());
+        }
+
+        public float CalculateWrongAnswer(char sign)
+        {
+            float randomNumber = rnd.Next(8);
+            float result = float.NaN;
+            switch (sign)
+            {
+                case '+':
+                    result = CorrectAnswer + randomNumber;
+                    break;
+                case '-':
+                    result = CorrectAnswer - randomNumber;
+                    break;
+                case '*':
+                    result = CorrectAnswer * randomNumber;
+                    break;
+                case '/':
+                    result = CorrectAnswer / randomNumber;
+                    break;
+            }
+            return result;
+        }
+
+        public float[] CalculateWrongAnswers(int countWrongAnswers)
+        {
+            List<float> wrongAnswers = new List<float>();
+            List<char> signs = new List<char> { '+',  '-' };
+            signs.Remove(Sign);
+
+
+            for (int i = 0; i < countWrongAnswers; i++)
+            {
+                wrongAnswers.Add(CalculateWrongAnswer(signs[rnd.Next(signs.Count)]));
+            }
+
+            return wrongAnswers.ToArray();
         }
     }
 }

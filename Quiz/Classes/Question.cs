@@ -8,13 +8,15 @@ namespace Quiz.Classes
 {
     internal class Question
     {
-        public int CorrectAnswer { get; set; }
+        public float CorrectAnswer { get; set; }
         public Equation Equation { get; set; }
-        public int[] Answers { get; set; }
+        public float[] Answers { get; set; }
 
-        public Question(Equation equation)
+        public Question(Equation equation, float correctAnswer, float[] answers)
         {
             Equation = equation;
+            CorrectAnswer = correctAnswer;
+            Answers = answers;
         }
     }
 }

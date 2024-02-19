@@ -40,15 +40,23 @@ namespace Quiz
 
             Equation equation = new Equation(selectedSign, numbers);
 
-            _question = new Question(equation);
-
             EquationLabel.Content = equation.ToString();
 
             Button[] buttons = {ButtonOne,  ButtonTwo, ButtonThree};
 
             Button[] shuffledButtons = ShuffleButtons(buttons);
 
-            shuffledButtons[0].Content = equation.CalculateCorrectAnswer().ToString();
+
+            float correctAnswer = equation.CalculateCorrectAnswer();
+            float[] wrongAnswers = equation.CalculateWrongAnswers(2);
+            float[] answers = { wrongAnswers[0], wrongAnswers[1], correctAnswer };
+
+
+            _question = new Question(equation, correctAnswer, answers);
+
+            shuffledButtons[0].Content = correctAnswer.ToString();
+            shuffledButtons[1].Content = wrongAnswers[0].ToString();
+            shuffledButtons[2].Content = wrongAnswers[1].ToString();
         }
 
         private Button[] ShuffleButtons(Button[] buttons)
