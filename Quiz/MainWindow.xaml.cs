@@ -36,16 +36,15 @@ namespace Quiz
 
             Random rnd = new Random();
             int[] numbers = { rnd.Next(100), rnd.Next(100) };
-
             char selectedSign = signs[rnd.Next(4)];
 
             Equation equation = new Equation(selectedSign, numbers);
 
+            _question = new Question(equation);
+
             EquationLabel.Content = equation.ToString();
 
-            DataTable dt = new DataTable();
-            var v = dt.Compute(equation.ToString(), "");
-            SelectButtonOne.Content = v.ToString();
+            SelectButtonOne.Content = equation.Calculate();
         }
     }
 }

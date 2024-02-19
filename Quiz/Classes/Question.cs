@@ -9,12 +9,12 @@ namespace Quiz.Classes
     internal class Question
     {
         public int CorrectAnswer { get; set; }
-        public string Equation { get; set; }
+        public Equation Equation { get; set; }
         public int[] Answers { get; set; }
 
-        public Question()
+        public Question(Equation equation)
         {
-
+            Equation = equation;
         }
     }
 }

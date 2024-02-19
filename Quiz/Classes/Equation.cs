@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,12 @@ namespace Quiz.Classes
         public string ToString()
         {
             return Numbers[0].ToString() + Sign + Numbers[1].ToString();
+        }
+
+        public int Calculate()
+        {
+            DataTable dt = new DataTable();
+            return Int32.Parse(dt.Compute(this.ToString(), "").ToString());
         }
     }
 }
