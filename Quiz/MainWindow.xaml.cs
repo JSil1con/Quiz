@@ -23,6 +23,7 @@ namespace Quiz
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Random rnd = new Random();
         private Question _question;
         public MainWindow()
         {
@@ -34,7 +35,6 @@ namespace Quiz
         {
             char[] signs = { '+', '-', '*', '/' };
 
-            Random rnd = new Random();
             int[] numbers = { rnd.Next(100), rnd.Next(100) };
             char selectedSign = signs[rnd.Next(4)];
 
@@ -44,9 +44,16 @@ namespace Quiz
 
             EquationLabel.Content = equation.ToString();
 
-            SelectButtonOne.Content = equation.CalculateCorrectAnswer();
+            Button[] buttons = {ButtonOne,  ButtonTwo, ButtonThree};
 
+            Button[] shuffledButtons = ShuffleButtons(buttons);
 
+            shuffledButtons[0].Content = equation.CalculateCorrectAnswer().ToString();
+        }
+
+        private Button[] ShuffleButtons(Button[] buttons)
+        {
+            return buttons.OrderBy(x => rnd.Next()).ToArray();
         }
     }
 }

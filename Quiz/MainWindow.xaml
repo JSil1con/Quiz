@@ -23,15 +23,7 @@
             HorizontalContentAlignment="Center"
             VerticalAlignment="Top" Grid.RowSpan="2"/>
         <Button 
-            x:Name="SelectButtonOne"
-            Content="Button" 
-            HorizontalAlignment="Center" 
-            Grid.Row="1" 
-            VerticalAlignment="Center" 
-            FontSize="17"
-            Height="50"
-            Width="100"/>
-        <Button 
+            x:Name="ButtonOne"
             Content="Button" 
             HorizontalAlignment="Left" 
             Grid.Row="1" 
@@ -40,6 +32,16 @@
             Height="50"
             Width="100" Margin="180,0,0,0"/>
         <Button 
+            x:Name="ButtonTwo"
+            Content="Button" 
+            HorizontalAlignment="Center" 
+            Grid.Row="1" 
+            VerticalAlignment="Center" 
+            FontSize="17"
+            Height="50"
+            Width="100"/>
+        <Button 
+            x:Name="ButtonThree"
             Content="Button" 
             HorizontalAlignment="Left" 
             Grid.Row="1" 

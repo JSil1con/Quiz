@@ -22,10 +22,10 @@ namespace Quiz.Classes
             return Numbers[0].ToString() + Sign + Numbers[1].ToString();
         }
 
-        public int CalculateCorrectAnswer()
+        public float CalculateCorrectAnswer()
         {
             DataTable dt = new DataTable();
-            return Int32.Parse(dt.Compute(this.ToString(), "").ToString());
+            return float.Parse(dt.Compute(this.ToString(), "").ToString());
         }
     }
 }
