@@ -11,7 +11,6 @@ namespace Quiz.Classes
         public int CorrectAnswer { get; set; }
         public string Equation { get; set; }
         public int[] Answers { get; set; }
-        public char Sign {  get; set; }
 
         public Question()
         {
