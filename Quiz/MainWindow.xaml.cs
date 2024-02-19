@@ -44,7 +44,9 @@ namespace Quiz
 
             EquationLabel.Content = equation.ToString();
 
-            SelectButtonOne.Content = equation.Calculate();
+            SelectButtonOne.Content = equation.CalculateCorrectAnswer();
+
+
         }
     }
 }
