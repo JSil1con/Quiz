@@ -25,6 +25,7 @@ namespace Quiz
     {
         private Random rnd = new Random();
         private Question _question;
+        private Equation _equation;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,21 +39,21 @@ namespace Quiz
             int[] numbers = { rnd.Next(100), rnd.Next(100) };
             char selectedSign = signs[rnd.Next(4)];
 
-            Equation equation = new Equation(selectedSign, numbers);
+            _equation = new Equation(selectedSign, numbers);
 
-            EquationLabel.Content = equation.ToString();
+            EquationLabel.Content = _equation.ToString();
 
             Button[] buttons = {ButtonOne,  ButtonTwo, ButtonThree};
 
             Button[] shuffledButtons = ShuffleButtons(buttons);
 
 
-            float correctAnswer = equation.CalculateCorrectAnswer();
-            float[] wrongAnswers = equation.CalculateWrongAnswers(2);
+            float correctAnswer = _equation.CalculateCorrectAnswer();
+            float[] wrongAnswers = _equation.CalculateWrongAnswers(2);
             float[] answers = { wrongAnswers[0], wrongAnswers[1], correctAnswer };
 
 
-            _question = new Question(equation, correctAnswer, answers);
+            _question = new Question(_equation, correctAnswer, answers);
 
             shuffledButtons[0].Content = correctAnswer.ToString();
             shuffledButtons[1].Content = wrongAnswers[0].ToString();
@@ -62,6 +63,16 @@ namespace Quiz
         private Button[] ShuffleButtons(Button[] buttons)
         {
             return buttons.OrderBy(x => rnd.Next()).ToArray();
+        }
+
+        private void ButtonClicked(object sender, RoutedEventArgs e)
+        {
+            string answer = (e.Source as Button).Content.ToString();
+
+            if (float.Parse(answer) == _equation.CorrectAnswer)
+            {
+                CreateEquation();
+            }
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Quiz.Classes
             signs.Remove(Sign);
 
 
-            for (int i = 0; i < countWrongAnswers; i++)
+            for (int i = 0; i < 2; i++)
             {
                 char randomSign = signs[rnd.Next(signs.Count)];
                 wrongAnswers.Add(CalculateWrongAnswer(randomSign));

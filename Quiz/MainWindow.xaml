@@ -25,6 +25,7 @@
         <Button 
             x:Name="ButtonOne"
             Content="Button" 
+            Click="ButtonClicked"
             HorizontalAlignment="Left" 
             Grid.Row="1" 
             VerticalAlignment="Center" 
@@ -33,7 +34,8 @@
             Width="100" Margin="180,0,0,0"/>
         <Button 
             x:Name="ButtonTwo"
-            Content="Button" 
+            Content="Button"
+            Click="ButtonClicked"
             HorizontalAlignment="Center" 
             Grid.Row="1" 
             VerticalAlignment="Center" 
@@ -42,8 +44,9 @@
             Width="100"/>
         <Button 
             x:Name="ButtonThree"
-            Content="Button" 
-            HorizontalAlignment="Left" 
+            Content="Button"
+            Click="ButtonClicked"
+            HorizontalAlignment="Left"
             Grid.Row="1" 
             VerticalAlignment="Center" 
             FontSize="17"
