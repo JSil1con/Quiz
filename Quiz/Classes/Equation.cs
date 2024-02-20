@@ -62,7 +62,9 @@ namespace Quiz.Classes
 
             for (int i = 0; i < countWrongAnswers; i++)
             {
-                wrongAnswers.Add(CalculateWrongAnswer(signs[rnd.Next(signs.Count)]));
+                char randomSign = signs[rnd.Next(signs.Count)];
+                wrongAnswers.Add(CalculateWrongAnswer(randomSign));
+                signs.Remove(randomSign);
             }
 
             return wrongAnswers.ToArray();
