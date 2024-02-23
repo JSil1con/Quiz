@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,10 +29,31 @@ namespace Quiz
         private Random rnd = new Random();
         private Question _question;
         private Equation _equation;
+        private FileHandler _fileHandler;
         private int _score;
+        private string _outputFilePath;
         public MainWindow()
         {
             InitializeComponent();
+
+
+            _outputFilePath = "score.json";
+            Dictionary<string, int> contentFile;
+            if (File.Exists(_outputFilePath))
+            {
+                contentFile = JsonSerializer.Deserialize<Dictionary<string, int>>(File.ReadAllText(_outputFilePath));
+                _score = contentFile["score"];
+            }
+
+            _fileHandler = new FileHandler(_outputFilePath);
+
+            contentFile = new Dictionary<string, int>();
+            contentFile.Add("score", 0);
+
+            _fileHandler.Write(JsonSerializer.Serialize(contentFile));
+
+            Score.Content = _score;
+
             CreateEquation();
         }
 
@@ -96,6 +120,11 @@ namespace Quiz
             }
 
             Score.Content = _score;
+
+            Dictionary<string, int> contentFile = new Dictionary<string, int>();
+            contentFile.Add("score", _score);
+
+            _fileHandler.Write(JsonSerializer.Serialize(contentFile));
         }
     }
 }

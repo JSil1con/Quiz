@@ -43,7 +43,7 @@
         </StackPanel>
         <Label 
             x:Name="Score" 
-            Content="0" 
+            Content="Label" 
             FontSize="50"
             HorizontalAlignment="Right" 
             VerticalAlignment="Top"
