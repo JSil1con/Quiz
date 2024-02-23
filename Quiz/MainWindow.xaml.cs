@@ -26,6 +26,7 @@ namespace Quiz
         private Random rnd = new Random();
         private Question _question;
         private Equation _equation;
+        private int _score;
         public MainWindow()
         {
             InitializeComponent();
@@ -72,7 +73,15 @@ namespace Quiz
             if (float.Parse(answer) == _equation.CorrectAnswer)
             {
                 CreateEquation();
+                _score += 10;
             }
+            else
+            {
+                CreateEquation();
+                _score = 0;
+            }
+
+            Score.Content = _score;
         }
     }
 }

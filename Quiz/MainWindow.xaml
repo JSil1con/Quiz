@@ -52,6 +52,12 @@
             FontSize="17"
             Height="50"
             Width="100" Margin="520,0,0,0"/>
-
+        <Label 
+            x:Name="Score" 
+            Content="0" 
+            FontSize="50"
+            HorizontalAlignment="Left" 
+            Margin="753,26,0,0" 
+            VerticalAlignment="Top" Width="37" Height="76"/>
     </Grid>
 </Window>
