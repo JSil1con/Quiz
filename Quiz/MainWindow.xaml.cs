@@ -111,13 +111,13 @@ namespace Quiz
             if (float.Parse(answer) == _equation.CorrectAnswer)
             {
                 _score += 10;
-                CreateEquation();
             }
             else
             {
                 _score = 0;
-                CreateEquation();
             }
+
+            CreateEquation();
 
             Score.Content = _score;
 
