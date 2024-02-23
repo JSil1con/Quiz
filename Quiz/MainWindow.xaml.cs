@@ -37,7 +37,18 @@ namespace Quiz
         {
             char[] signs = { '+', '-', '*', '/' };
 
-            int[] numbers = { rnd.Next(100), rnd.Next(100) };
+            int minNumber = 0;
+            int maxNumber;
+            if (_score != 0 )
+            {
+                maxNumber = _score * 2;
+            }
+            else
+            {
+                maxNumber = 10;
+            }
+
+            int[] numbers = { rnd.Next(minNumber, maxNumber), rnd.Next(minNumber, maxNumber) };
             char selectedSign = signs[rnd.Next(4)];
 
             _equation = new Equation(selectedSign, numbers);
@@ -72,13 +83,13 @@ namespace Quiz
 
             if (float.Parse(answer) == _equation.CorrectAnswer)
             {
-                CreateEquation();
                 _score += 10;
+                CreateEquation();
             }
             else
             {
-                CreateEquation();
                 _score = 0;
+                CreateEquation();
             }
 
             Score.Content = _score;
