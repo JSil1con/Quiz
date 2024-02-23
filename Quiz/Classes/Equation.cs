@@ -49,22 +49,25 @@ namespace Quiz.Classes
                 case '/':
                     result = CorrectAnswer / randomNumber;
                     break;
-            }
+            }   
             return result;
         }
 
         public float[] CalculateWrongAnswers(int countWrongAnswers)
         {
             List<float> wrongAnswers = new List<float>();
-            List<char> signs = new List<char> { '+',  '-' };
-            signs.Remove(Sign);
+            char[] signs = { '+', '-' };
 
 
             for (int i = 0; i < 2; i++)
             {
-                char randomSign = signs[rnd.Next(signs.Count)];
-                wrongAnswers.Add(CalculateWrongAnswer(randomSign));
-                signs.Remove(randomSign);
+                char randomSign = signs[rnd.Next(signs.Length)];
+                float wrongAnswer = CalculateWrongAnswer(randomSign);
+                while (wrongAnswers.Contains(wrongAnswer) || wrongAnswer == CorrectAnswer)
+                {
+                    wrongAnswer = CalculateWrongAnswer(randomSign);
+                }
+                wrongAnswers.Add(wrongAnswer);
             }
 
             return wrongAnswers.ToArray();
