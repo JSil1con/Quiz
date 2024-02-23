@@ -38,20 +38,23 @@ namespace Quiz
             char[] signs = { '+', '-', '*', '/' };
 
             int minNumber = 0;
-            int maxNumber;
-            if (_score != 0 )
+            int maxNumber = Math.Max(10, _score * 2);
+            int numberOfOperands = Math.Max(2, _score / 15);
+
+            int[] numbers = new int[numberOfOperands];
+            char[] selectedSigns = new char[numberOfOperands - 1];
+
+            for (int i = 0; i < numberOfOperands; i++)
             {
-                maxNumber = _score * 2;
-            }
-            else
-            {
-                maxNumber = 10;
+                numbers[i] = rnd.Next(minNumber, maxNumber);
             }
 
-            int[] numbers = { rnd.Next(minNumber, maxNumber), rnd.Next(minNumber, maxNumber) };
-            char selectedSign = signs[rnd.Next(4)];
+            for (int i = 0; i < numberOfOperands - 1; i++)
+            {
+                selectedSigns[i] = signs[rnd.Next(signs.Length)];
+            }
 
-            _equation = new Equation(selectedSign, numbers);
+            _equation = new Equation(selectedSigns, numbers);
 
             EquationLabel.Content = _equation.ToString();
 

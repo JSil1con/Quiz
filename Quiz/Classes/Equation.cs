@@ -9,26 +9,36 @@ namespace Quiz.Classes
 {
     internal class Equation
     {
-        public char Sign { get; set; }
+        public char[] Signs { get; set; }
         public int[] Numbers { get; set; }
         public float CorrectAnswer { get; set; }
         DataTable dt = new DataTable();
         Random rnd = new Random();
-        public Equation(char sign, int[] numbers)
+        public Equation(char[] signs, int[] numbers)
         {
-            Sign = sign;
+            Signs = signs;
             Numbers = numbers;
             CorrectAnswer = CalculateCorrectAnswer();
         }
 
         public string ToString()
         {
-            return Numbers[0].ToString() + Sign + Numbers[1].ToString();
+            string equationString = Numbers[0].ToString();
+            for (int i = 0; i < Signs.Length; i++)
+            {
+                equationString += " " + Signs[i] + " " + Numbers[i + 1].ToString();
+            }
+            return equationString;
         }
 
         public float CalculateCorrectAnswer()
         {
-            return float.Parse(dt.Compute(Numbers[0].ToString() + Sign + Numbers[1].ToString(), "").ToString());
+            string expression = Numbers[0].ToString();
+            for (int i = 0; i < Signs.Length; i++)
+            {
+                expression += Signs[i] + Numbers[i + 1].ToString();
+            }
+            return float.Parse(dt.Compute(expression, "").ToString());
         }
 
         public float CalculateWrongAnswer(char sign)
