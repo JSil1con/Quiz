@@ -68,31 +68,37 @@ namespace Quiz
 
         private void CreateEquation()
         {
-            char[] signs = { '+', '-', '*', '/' };
-
-            //Min, max numbers in the equation + number of operands
-            int minNumber = 0;
-            int maxNumber = Math.Max(10, _score * 2);
-            int numberOfOperands = Math.Max(2, _score / 15);
-
-            //Numbers and signs in the equation
-            int[] numbers = new int[numberOfOperands];
-            char[] selectedSigns = new char[numberOfOperands - 1];
-
-            for (int i = 0; i < numberOfOperands; i++)
+            double correctAnswerEquation = 0;
+            do
             {
-                //Select random number
-                numbers[i] = rnd.Next(minNumber, maxNumber);
+                char[] signs = { '+', '-', '*', '/' };
 
-                //Count of signs - 1 than numbers
-                if (i < numberOfOperands - 1)
+                //Min, max numbers in the equation + number of operands
+                int minNumber = 0;
+                int maxNumber = Math.Max(10, _score * 2);
+                int numberOfOperands = Math.Max(2, _score / 15);
+
+                //Numbers and signs in the equation
+                int[] numbers = new int[numberOfOperands];
+                char[] selectedSigns = new char[numberOfOperands - 1];
+
+                for (int i = 0; i < numberOfOperands; i++)
                 {
-                    //Select random sign
-                    selectedSigns[i] = signs[rnd.Next(signs.Length)];
-                }
-            }
+                    //Select random number
+                    numbers[i] = rnd.Next(minNumber, maxNumber);
 
-            _equation = new Equation(selectedSigns, numbers);
+                    //Count of signs - 1 than numbers
+                    if (i < numberOfOperands - 1)
+                    {
+                        //Select random sign
+                        selectedSigns[i] = signs[rnd.Next(signs.Length)];
+                    }
+                }
+
+                _equation = new Equation(selectedSigns, numbers);
+
+                correctAnswerEquation = (double)_equation.CorrectAnswer;
+            } while (correctAnswerEquation % 1 != 0);
 
             //Write equation to the label
             EquationLabel.Content = _equation.ToString();
