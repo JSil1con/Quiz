@@ -66,13 +66,17 @@ namespace Quiz.Classes
         public float[] CalculateWrongAnswers(int countWrongAnswers)
         {
             List<float> wrongAnswers = new List<float>();
+
+            //Signs to calculate wrong answers
             char[] signs = { '+', '-' };
 
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < countWrongAnswers; i++)
             {
                 char randomSign = signs[rnd.Next(signs.Length)];
                 float wrongAnswer = CalculateWrongAnswer(randomSign);
+
+                //Calculate answer while answer is not the same as previous one + as correct answer
                 while (wrongAnswers.Contains(wrongAnswer) || wrongAnswer == CorrectAnswer)
                 {
                     wrongAnswer = CalculateWrongAnswer(randomSign);
