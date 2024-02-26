@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,17 +12,22 @@ namespace Quiz.Classes
     {
         public char[] Signs { get; set; }
         public int[] Numbers { get; set; }
-        public float CorrectAnswer { get; set; }
+        public BigInteger CorrectAnswer { get; set; }
+        public string EquationString { get; set; }
         DataTable dt = new DataTable();
         Random rnd = new Random();
         public Equation(char[] signs, int[] numbers)
         {
             Signs = signs;
             Numbers = numbers;
-            CorrectAnswer = CalculateCorrectAnswer();
+            EquationString = PrepareEquation();
+            if (CanCalculate())
+            {
+                CorrectAnswer = CalculateCorrectAnswer();
+            }
         }
 
-        public string ToString()
+        public string GetEquationString()
         {
             string equationString = Numbers[0].ToString();
             for (int i = 0; i < Signs.Length; i++)
@@ -31,20 +37,38 @@ namespace Quiz.Classes
             return equationString;
         }
 
-        public float CalculateCorrectAnswer()
+        public string PrepareEquation()
         {
             string expression = Numbers[0].ToString();
             for (int i = 0; i < Signs.Length; i++)
             {
                 expression += Signs[i] + Numbers[i + 1].ToString();
             }
-            return float.Parse(dt.Compute(expression, "").ToString());
+            return expression;
         }
 
-        public float CalculateWrongAnswer(char sign)
+        public bool CanCalculate()
         {
-            float randomNumber = rnd.Next(8);
-            float result = float.NaN;
+            try
+            {
+                CalculateCorrectAnswer();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public BigInteger CalculateCorrectAnswer()
+        {
+            return BigInteger.Parse(dt.Compute(EquationString, "").ToString());
+        }
+
+        public BigInteger CalculateWrongAnswer(char sign)
+        {
+            BigInteger randomNumber = rnd.Next(8);
+            BigInteger result = 0;
             switch (sign)
             {
                 case '+':
@@ -63,9 +87,9 @@ namespace Quiz.Classes
             return result;
         }
 
-        public float[] CalculateWrongAnswers(int countWrongAnswers)
+        public BigInteger[] CalculateWrongAnswers(int countWrongAnswers)
         {
-            List<float> wrongAnswers = new List<float>();
+            List<BigInteger> wrongAnswers = new List<BigInteger>();
 
             //Signs to calculate wrong answers
             char[] signs = { '+', '-' };
@@ -74,7 +98,7 @@ namespace Quiz.Classes
             for (int i = 0; i < countWrongAnswers; i++)
             {
                 char randomSign = signs[rnd.Next(signs.Length)];
-                float wrongAnswer = CalculateWrongAnswer(randomSign);
+                BigInteger wrongAnswer = CalculateWrongAnswer(randomSign);
 
                 //Calculate answer while answer is not the same as previous one + as correct answer
                 while (wrongAnswers.Contains(wrongAnswer) || wrongAnswer == CorrectAnswer)

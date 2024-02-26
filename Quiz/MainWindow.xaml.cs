@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -100,17 +101,28 @@ namespace Quiz
                 correctAnswerEquation = (double)_equation.CorrectAnswer;
             } while (correctAnswerEquation % 1 != 0);
 
+            if (!_equation.CanCalculate())
+            {
+                //End the program
+                EquationLabel.Content = "You have reached maximum points";
+                ButtonOne.Visibility = Visibility.Hidden;
+                ButtonTwo.Visibility = Visibility.Hidden;
+                ButtonThree.Visibility = Visibility.Hidden;
+                _score = 0;
+                return;
+            }
+
             //Write equation to the label
-            EquationLabel.Content = _equation.ToString();
+            EquationLabel.Content = _equation.GetEquationString();
 
             //Buttons and then shuffle them
             Button[] buttons = {ButtonOne,  ButtonTwo, ButtonThree};
             Button[] shuffledButtons = buttons.OrderBy(x => rnd.Next()).ToArray();
 
             //Answers
-            float correctAnswer = _equation.CalculateCorrectAnswer();
-            float[] wrongAnswers = _equation.CalculateWrongAnswers(2);
-            float[] answers = { wrongAnswers[0], wrongAnswers[1], correctAnswer };
+            BigInteger correctAnswer = _equation.CalculateCorrectAnswer();
+            BigInteger[] wrongAnswers = _equation.CalculateWrongAnswers(2);
+            BigInteger[] answers = { wrongAnswers[0], wrongAnswers[1], correctAnswer };
 
 
             _question = new Question(_equation, correctAnswer, answers);
@@ -127,7 +139,7 @@ namespace Quiz
             //Get answer
             string answer = (e.Source as Button).Content.ToString();
 
-            if (float.Parse(answer) == _equation.CorrectAnswer)
+            if (BigInteger.Parse(answer) == _equation.CorrectAnswer)
             {
                 //Answer is correct
                 _score += 10;
